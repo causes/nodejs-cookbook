@@ -19,6 +19,7 @@
 #
 
 include_recipe "build-essential"
+include_recipe "python"
 
 case node['platform_family']
   when 'rhel','fedora'
@@ -54,7 +55,7 @@ bash "compile node.js (on #{node['nodejs']['make_threads']} cpu)" do
   cwd "/usr/local/src/node-v#{node['nodejs']['version']}"
   code <<-EOH
     PATH="/usr/local/bin:$PATH"
-    ./configure --prefix=#{node['nodejs']['dir']} && \
+    /usr/bin/python27 ./configure --prefix=#{node['nodejs']['dir']} && \
     make -j #{node['nodejs']['make_threads']}
   EOH
   creates "/usr/local/src/node-v#{node['nodejs']['version']}/node"
